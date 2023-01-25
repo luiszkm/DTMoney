@@ -1,9 +1,11 @@
 import * as Dialog from '@radix-ui/react-dialog'
+import * as RadioGroup from '@radix-ui/react-radio-group';
 import { Input } from './Input'
 import { Button } from './Button'
+import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
 
 
-export function NewTransactionModal( ) {
+export function NewTransactionModal() {
 
   return (
     <Dialog.Portal className=''>
@@ -14,14 +16,41 @@ export function NewTransactionModal( ) {
         <form className=' flex flex-col items-center gap-3 w-full mt-8'>
           <Input placeholder='Descrição' />
           <Input placeholder='Preço' />
-          <Input placeholder='Categoria'/>
-          
+          <Input placeholder='Categoria' />
+
+          <RadioGroup.Root className='flex w-full items-center gap-3'>
+
+
+
+
+            <RadioGroup.Item className='w-full rounded-md px-4 py-6 bg-gray-700 flex items-center gap-2 hover:bg-gray-600 focus-within:bg-green-700 
+               [&>*:nth-child(odd)]:text-green-300 [&>*:nth-child(even)]:text-gray-300 focus-within:hover:bg-green-700
+               [&>*:nth-child(odd)]:focus-within:text-white [&>*:nth-child(even)]:focus-within:text-white '
+              value='income'>
+              <ArrowCircleUp size={24} className='text-green-300' />
+             <span>Entrada</span>
+            </RadioGroup.Item>
+
+            <RadioGroup.Item className='w-full rounded-md px-4 py-6 bg-gray-700 flex items-center gap-2 hover:bg-gray-600 focus-within:bg-red-700 
+              [&>*:nth-child(odd)]:text-red-300 [&>*:nth-child(even)]:text-gray-300 focus-within:hover:bg-red-700 
+                [&>*:nth-child(odd)]:focus-within:text-white [&>*:nth-child(even)]:focus-within:text-white  '
+              value='outcome'>
+
+              <ArrowCircleDown size={24} />
+              <span >Saída</span>
+            </RadioGroup.Item>
+          </RadioGroup.Root>
+
           <Button model='medium' >
             Cadastrar
           </Button>
         </form>
 
-        <Dialog.Close />
+        <Dialog.Close className='absolute top-5 right-6 text-gray-300 hover:text-red-500'>
+          <button className='bg-transparent'>
+            <X size={20} weight='bold' />
+          </button>
+        </Dialog.Close>
       </Dialog.Content>
     </Dialog.Portal>
   )

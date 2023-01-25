@@ -1,9 +1,9 @@
 
 interface TabBarProps {
   
-    name: string
-    value: number
-    date: Date
+    name?: string
+    value?: number
+    date?: Date
   
 }
 

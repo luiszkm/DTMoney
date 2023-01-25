@@ -1,43 +1,45 @@
+import { useContext, useEffect, useState } from "react"
+import { ConvertCents } from "../utils/ConvertCents";
+import { TransactionsContext } from "../contexts/transactionContext";
 
-interface TransactionsProps {
+
+
+
+export function Transactions() {
  
-    money?: "exit" | "entry"
+const { transactions} = useContext(TransactionsContext)
   
-}
-
-
-export function Transactions({ money = 'entry' }: TransactionsProps) {
 
 
 
   return (
-   
-      <table className="w-full hidden border-separate border-spacing-y-1 md:table ">
-        
-        <tbody className="w-full  gap-2 ">
-          <tr className="text-gray-300 w-full bg-gray-700  ">
-            <td className="w-1/2 px-8 py-5 rounded-tl-md rounded-bl-md  ">Salário</td>
-            <td className={
-              money === 'entry' ?
-                "text-green-300 px-8 py-5 " :
-                "text-red-500 px-8 py-5"} >R$ 20.00</td>
-            <td className="text-center">Venda</td>
-            <td className="px-8 py-5  text-right rounded-tr-md rounded-br-md  ">23/02/2023</td>
-          </tr>
-          
-          <tr className="text-gray-300 w-full bg-gray-700  ">
-            <td className="w-1/2 px-8 py-5 rounded-tl-md rounded-bl-md  ">Salário</td>
-            <td className={
-              money === 'exit' ?
-                "text-green-300 px-8 py-5 " :
-                "text-red-500 px-8 py-5"} >R$ 20.00</td>
-            <td className="text-center">Venda</td>
-            <td className="px-8 py-5  text-right rounded-tr-md rounded-br-md  ">23/02/2023</td>
-          </tr>
 
-         
-        </tbody>
-      </table>
+    <table className="w-full hidden border-separate border-spacing-y-1 md:table ">
+
+      <tbody className="w-full  gap-2 ">
+
+        {
+          transactions &&
+          transactions.map(transaction => {
+            return (
+              <tr key={String(transaction.id)}
+              className="text-gray-300 w-full bg-gray-700  ">
+                <td className="w-1/2 px-8 py-5 rounded-tl-md rounded-bl-md  ">{transaction.description}</td>
+                <td className={
+                  transaction.type === 'income' ?
+                    "text-green-300 px-8 py-5 " :
+                    "text-red-500 px-8 py-5"} >R$ {ConvertCents(transaction.price)}</td>
+                <td className="text-center">{transaction.type}</td>
+                <td className="px-8 py-5  text-right rounded-tr-md rounded-br-md  ">{transaction.createdAt}</td>
+              </tr>
+            )
+          })
+        }
+
+
+
+      </tbody>
+    </table>
 
   )
 
