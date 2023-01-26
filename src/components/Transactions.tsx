@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react"
 import { ConvertCents } from "../utils/ConvertCents";
 import { TransactionsContext } from "../contexts/transactionContext";
+import { dataFormatter } from "../utils/FormatDate";
 
 
 
 
 export function Transactions() {
- 
-const { transactions} = useContext(TransactionsContext)
-  
+
+  const { transactions } = useContext(TransactionsContext)
+
 
 
 
@@ -23,14 +24,16 @@ const { transactions} = useContext(TransactionsContext)
           transactions.map(transaction => {
             return (
               <tr key={String(transaction.id)}
-              className="text-gray-300 w-full bg-gray-700  ">
+                className="text-gray-300 w-full bg-gray-700  ">
                 <td className="w-1/2 px-8 py-5 rounded-tl-md rounded-bl-md  ">{transaction.description}</td>
                 <td className={
                   transaction.type === 'income' ?
                     "text-green-300 px-8 py-5 " :
-                    "text-red-500 px-8 py-5"} >R$ {ConvertCents(transaction.price)}</td>
+                    "text-red-500 px-8 py-5"} >
+                  {transaction.type === 'outcome' && "- "}
+                  R$ {ConvertCents(transaction.price)}</td>
                 <td className="text-center">{transaction.type}</td>
-                <td className="px-8 py-5  text-right rounded-tr-md rounded-br-md  ">{transaction.createdAt}</td>
+                <td className="px-8 py-5  text-right rounded-tr-md rounded-br-md  ">{dataFormatter.format(new Date(transaction.createdAt))}</td>
               </tr>
             )
           })

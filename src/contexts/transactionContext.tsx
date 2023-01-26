@@ -6,7 +6,7 @@ interface Transaction {
   type: 'income' | 'outcome';
   category: string;
   price: number;
-  createdAt: any;
+  createdAt: Date;
 
 }
 
