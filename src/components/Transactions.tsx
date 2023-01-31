@@ -32,7 +32,7 @@ export function Transactions() {
                     "text-red-500 px-8 py-5"} >
                   {transaction.type === 'outcome' && "- "}
                   R$ {ConvertCents(transaction.price)}</td>
-                <td className="text-center">{transaction.type}</td>
+                <td className="text-center">{transaction.type === 'income'? "Entrada" : "Saída"}</td>
                 <td className="px-8 py-5  text-right rounded-tr-md rounded-br-md  ">{dataFormatter.format(new Date(transaction.createdAt))}</td>
               </tr>
             )

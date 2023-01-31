@@ -15,6 +15,22 @@
       "category": "comida",
       "price": 5000,
       "createdAt": "2023-01-24T20:20:15.910Z"
+    },
+    {
+      "description": "Sistema shopping",
+      "price": 10000,
+      "category": "Venda",
+      "type": "income",
+      "createdAt": "2023-01-30T19:22:09.307Z",
+      "id": 3
+    },
+    {
+      "description": "DDR$",
+      "price": 250,
+      "category": "PC",
+      "type": "outcome",
+      "createdAt": "2023-01-30T19:40:56.398Z",
+      "id": 4
     }
   ]
 }

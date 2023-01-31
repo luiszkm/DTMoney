@@ -3,6 +3,8 @@ import { Input } from "./Input";
 import { useForm } from "react-hook-form";
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useContext } from "react";
+import { TransactionsContext } from "../contexts/transactionContext";
 
 
 const searchFormSchema = z.object({
@@ -11,6 +13,9 @@ const searchFormSchema = z.object({
 type SearchFormInputs = z.infer<typeof searchFormSchema>
 
 export function SearchForm() {
+  const { fetchTransactions } = useContext(TransactionsContext)
+
+
   const {
     register,
     handleSubmit,
@@ -20,14 +25,10 @@ export function SearchForm() {
   })
 
   async function handleSearchTransactions(data: SearchFormInputs) {
-    try{
-      await new Promise(resolve => setTimeout(resolve,2000))
-      
-      console.log(data);
+    try {
+      await fetchTransactions(data.query)
 
-    }catch{}
-    
-    
+    } catch { }
 
   }
   return (
@@ -36,7 +37,7 @@ export function SearchForm() {
       <input className="p-4 w-full bg-gray-900 rounded-md outline-none text-gray-300 placeholder:text-gray-500 focus:outline-green-300"
         placeholder="Busque uma transação" {...register('query')} />
       <button disabled={isSubmitting}
-       className="flex px-8 py-4 items-center gap-3 font-bold text-green-300 border border-green-300 rounded-md 
+        className="flex px-8 py-4 items-center gap-3 font-bold text-green-300 border border-green-300 rounded-md 
  hover:text-white hover:bg-green-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:bg-green-700 ">Buscar
         <MagnifyingGlass size={20} />
       </button>
